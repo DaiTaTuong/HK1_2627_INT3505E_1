@@ -27,7 +27,7 @@ def get_book(bid):
     return jsonify(book), 200
 
 #Create - POST/books 
-@app.route("books", methods=["POST"])
+@app.route("/books", methods=["POST"])
 def create_book(): 
     global _next
     body = request.get_json(silent=True) or {} 
@@ -55,3 +55,6 @@ def modify_book(bid):
         return jsonify(book), 200
     BOOKS.remove(book) 
     return "", 204
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=5000, debug=True)
