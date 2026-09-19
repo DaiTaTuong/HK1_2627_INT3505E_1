@@ -8,7 +8,7 @@ BOOKS = [
 
 def find(b_id): 
     for b in BOOKS:
-        if b["id"] == b_id:
+        if b.get("id") == b_id:
             return b
     return None
 
