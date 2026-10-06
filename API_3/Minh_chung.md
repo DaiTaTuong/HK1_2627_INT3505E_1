@@ -11,6 +11,7 @@ Tài liệu này ghi lại quá trình kiểm thử và minh chứng kết quả
 * **Mục tiêu**: Đảm bảo luồng chạy bình thường không bị ảnh hưởng bởi error handler. 
 
 * **Kết quả khi chạy (Postman / cURL / Trình duyệt):**
+* ![Ảnh chụp màn hình](API_3/Screenshot%202026-10-06%20191212.png)
 
 ### Test Case 2: Lỗi nghiệp vụ có kiểm soát (HTTP 404 Problem Details)
 
