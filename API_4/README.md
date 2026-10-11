@@ -30,7 +30,7 @@
 ### Minh hoạ
 **Auth**
 
-![Auth - đăng nhập](image_1.png)
+![Auth - đăng nhập](img_1.png)
 
 **Books**
 
