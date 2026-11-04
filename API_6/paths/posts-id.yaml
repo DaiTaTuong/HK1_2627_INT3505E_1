@@ -1,0 +1,67 @@
+get:
+  tags:
+    - Posts
+  summary: Lấy chi tiết bài viết
+  description: Lấy nội dung bài viết theo ID. Yêu cầu Access Token và scope `posts:read`.
+  operationId: getPostById
+  security:
+    - BearerAuth:
+        - "posts:read"
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Định danh bài viết
+      schema:
+        type: integer
+        example: 1024
+  responses:
+    '200':
+      description: Trả về dữ liệu bài viết
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 1024
+              author_id:
+                type: integer
+                example: 42
+              content:
+                type: string
+                example: "Hôm nay là một ngày tuyệt vời!"
+              created_at:
+                type: string
+                format: date-time
+                example: "2026-10-26T10:00:00Z"
+    '401':
+      description: Unauthorized - Thiếu hoặc Access Token không hợp lệ
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ErrorResponse.yaml'
+          example:
+            error: unauthenticated
+            message: "Yêu cầu cung cấp Access Token hợp lệ."
+    '403':
+      description: Forbidden - Thiếu scope `posts:read` hoặc vi phạm BOLA
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ErrorResponse.yaml'
+          example:
+            error: forbidden
+            message: "Bạn không có quyền truy cập bài viết này."
+    '404':
+      description: Not Found - Bài viết không tồn tại
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ErrorResponse.yaml'
+          example:
+            error: not_found
+            message: "Không tìm thấy bài viết."
+    '500':
+      $ref: '../components/responses.yaml#/500InternalServerError'

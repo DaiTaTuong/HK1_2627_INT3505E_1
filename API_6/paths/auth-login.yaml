@@ -1,0 +1,62 @@
+post:
+  tags:
+    - Auth
+  summary: Đăng nhập người dùng
+  description: Xác thực người dùng qua email và password, trả về cặp Access Token và Refresh Token.
+  operationId: loginUser
+  security: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - email
+            - password
+          properties:
+            email:
+              type: string
+              format: email
+              example: user@example.com
+            password:
+              type: string
+              format: password
+              example: P@ssw0rd123!
+  responses:
+    '200':
+      description: Đăng nhập thành công
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+                description: "JWT Access Token (sống ngắn hạn, ví dụ: 15 phút)"
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              refresh_token:
+                type: string
+                description: "JWT Refresh Token (sống dài hạn, ví dụ: 30 ngày)"
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              token_type:
+                type: string
+                example: Bearer
+              expires_in:
+                type: integer
+                example: 900
+    '400':
+      $ref: '../components/responses.yaml#/400BadRequest'
+    '401':
+      description: Unauthorized - Sai thông tin đăng nhập
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ErrorResponse.yaml'
+          example:
+            error: invalid_credentials
+            message: "Email hoặc mật khẩu không chính xác."
+    '429':
+      $ref: '../components/responses.yaml#/429TooManyRequests'
+    '500':
+      $ref: '../components/responses.yaml#/500InternalServerError'

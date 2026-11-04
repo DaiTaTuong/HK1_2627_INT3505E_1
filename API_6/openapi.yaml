@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: Social Network API - Auth & Posts
+  version: 1.0.0
+  description: Tài liệu OpenAPI Spec đã được chia nhỏ thành nhiều module.
+servers:
+  - url: https://api.socialnetwork.com/v1
+    description: Production Server (HTTPS)
+
+tags:
+  - name: Auth
+  - name: Posts
+
+paths:
+  /auth/login:
+    $ref: './paths/auth-login.yaml'
+  /auth/refresh:
+    $ref: './paths/auth-refresh.yaml'
+  /posts/{id}:
+    $ref: './paths/posts-id.yaml'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      $ref: './components/security/BearerAuth.yaml'
+  schemas:
+    ErrorResponse:
+      $ref: './components/schemas/ErrorResponse.yaml'
+  responses:
+    $ref: './components/responses.yaml'

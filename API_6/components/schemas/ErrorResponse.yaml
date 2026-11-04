@@ -1,0 +1,11 @@
+type: object
+required:
+  - error
+  - message
+properties:
+  error:
+    type: string
+    example: invalid_request
+  message:
+    type: string
+    example: "Thông tin gửi lên không hợp lệ."

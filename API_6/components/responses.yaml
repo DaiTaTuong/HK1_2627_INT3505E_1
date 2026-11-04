@@ -1,0 +1,33 @@
+400BadRequest:
+  description: Bad Request - Dữ liệu đầu vào sai định dạng
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/ErrorResponse.yaml'
+
+403Forbidden:
+  description: Forbidden - Không đủ quyền hành động (thiếu scope)
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/ErrorResponse.yaml'
+
+429TooManyRequests:
+  description: Too Many Requests - Vượt quá hạn mức Rate Limit
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/ErrorResponse.yaml'
+      example:
+        error: rate_limit_exceeded
+        message: "Bạn đã thử quá nhiều lần. Vui lòng thử lại sau 15 phút."
+
+500InternalServerError:
+  description: Internal Server Error - Lỗi hệ thống nội bộ
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/ErrorResponse.yaml'
+      example:
+        error: internal_server_error
+        message: "Đã xảy ra lỗi trên hệ thống."

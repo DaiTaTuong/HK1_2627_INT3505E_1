@@ -1,0 +1,4 @@
+type: http
+scheme: bearer
+bearerFormat: JWT
+description: "Nhập JWT Token. Dùng Access Token cho /posts/{id} và Refresh Token cho /auth/refresh."

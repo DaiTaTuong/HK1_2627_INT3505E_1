@@ -1,0 +1,37 @@
+post:
+  tags:
+    - Auth
+  summary: Làm mới Access Token
+  description: Cấp Access Token mới bằng Refresh Token hợp lệ.
+  operationId: refreshToken
+  security:
+    - BearerAuth: []
+  responses:
+    '200':
+      description: Cấp token mới thành công
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              expires_in:
+                type: integer
+                example: 900
+    '401':
+      description: Unauthorized - Refresh Token bị hết hạn, không hợp lệ hoặc đã bị thu hồi
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ErrorResponse.yaml'
+          example:
+            error: token_revoked_or_expired
+            message: "Refresh token không hợp lệ hoặc đã bị vô hiệu hóa."
+    '403':
+      $ref: '../components/responses.yaml#/403Forbidden'
+    '429':
+      $ref: '../components/responses.yaml#/429TooManyRequests'
+    '500':
+      $ref: '../components/responses.yaml#/500InternalServerError'
