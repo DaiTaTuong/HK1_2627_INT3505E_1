@@ -1,11 +1,12 @@
 from marshmallow import validate, fields
-from src.product_api.extensions import ma
-from src.product_api.models import Product
+from src.product_api.extensions import db, ma
+from src.product_api.models.product import Product
 
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Product
         load_instance = True
+        sqla_session = db.session
         # Loại bỏ trường archived khỏi response mặc định
         exclude = ("archived",)
 
@@ -13,7 +14,7 @@ class ProductSchema(ma.SQLAlchemyAutoSchema):
     sku = fields.String(required=True, validate=validate.Length(min=3, max=32))
     name = fields.String(required=True, validate=validate.Length(min=1, max=255))
     price_cents = fields.Integer(required=True, validate=validate.Range(min=0))
-    qty_in_stock = fields.Integer(missing=0, validate=validate.Range(min=0))
+    qty_in_stock = fields.Integer(load_default=0, validate=validate.Range(min=0))
 
 class ProductUpdateSchema(ma.Schema):
     # Schema dành cho PATCH (cập nhật một phần), không bắt buộc phải có tất cả các field

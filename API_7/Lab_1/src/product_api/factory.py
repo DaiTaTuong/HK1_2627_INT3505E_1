@@ -15,6 +15,10 @@ def create_app(config_class=Config):
     from src.product_api.api.products import products_bp
     app.register_blueprint(products_bp)
 
+    # Tự động khởi tạo các bảng trong database nếu chưa tồn tại
+    with app.app_context():
+        db.create_all()
+
     # Đăng ký xử lý lỗi chung để đảm bảo mọi lỗi 404/500 đều về dạng JSON
     @app.errorhandler(404)
     def handle_404(e):
