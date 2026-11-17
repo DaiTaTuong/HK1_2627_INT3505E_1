@@ -1,0 +1,27 @@
+extends: ["spectral:oas"]
+
+rules:
+  # Rule kiểm tra: DELETE 204 không được phép có response body (content)
+  no-204-body:
+    description: "204 response must not have a body"
+    message: "{{error}}"
+    severity: error
+    given: "$.paths.[*].delete.responses['204']"
+    then:
+      field: content
+      function: falsy
+
+  # Rule kiểm tra: Book.year phải là integer
+  book-year-type:
+    description: "Book year must be an integer"
+    message: "Year must be of type integer, got {{value}}"
+    severity: error
+    given: "$.components.schemas.Book.properties.year"
+    then:
+      field: type
+      function: enumeration
+      functionOptions:
+        values:
+          - integer
+
+  # TODO: Bạn sẽ tự viết thêm custom rule kiểm tra response 200 có schema không rỗng tại đây
